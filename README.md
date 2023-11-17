@@ -12,8 +12,8 @@ giaCB is a context-aware GPT-4-based chatbot specifically designed for different
 
 ### Highlights
 
-- High accuracy: Demonstrates superior performance in providing gastrointestinal differential diagnoses.
-- Advanced contextual understanding: Significantly outperforms generic GPT-4 models in providing contextual responses and diagnostic support.
+- Demonstrates high performance in gastrointestinal differential diagnosis.
+- Outperforms generic GPT-4 models in providing contextual responses and diagnostic support.
 - **Potential Impact**: Could significantly improve the efficiency and accuracy of diagnostic processes in radiology.
 
 ### Important note
