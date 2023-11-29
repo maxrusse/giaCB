@@ -1,0 +1,12 @@
+flask==2.2.2
+llama-index==0.8.4
+backoff==2.2.1
+langchain==0.0.266
+nest-asyncio==1.5.6
+numpy==1.25.2
+openai==0.27.8
+openssl==1.1.1w
+pandas==2.0.1
+pypdf==3.15.1
+requests==2.30.0
+scipy==1.11.1

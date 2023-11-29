@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chatbot for Differential Diagnosis in Gastrointestinal Imaging</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+
+    <div class="container my-5">
+        <div class="text-center mb-4">
+            <h1 class="display-6">giaCB (Gastrointestinal Imaging-Aware Chatbot)</h1>
+            <h1 class="display-6">AI Chatbot for Differential Diagnosis in Gastrointestinal Imaging</h1>
+            <p class="text-danger lead">
+                Notice: This chatbot is for experimental purposes only and not for medical use. Data gets sent to OpenAI!
+            </p>
+        </div>
+        <div class="card p-4">
+            <h3 class="h4 mb-4">Case-file with Imaging Findings:</h3>
+            <textarea id="casedesc" rows="3" class="form-control mb-3" placeholder="Insert your case:"></textarea>
+            <button class="btn btn-primary" onclick="submitQuery()">Submit</button>
+        </div>
+        <div class="text-center my-3" style="height: 50px;">
+            <div class="loader" style="display: none;">
+                <div class="spinner-border spinner-border-sm" role="status"></div>
+            </div>
+        </div>
+        <div class="card mt-3 p-4">
+            <h3 class="h4 mb-4">Answer:</h3>
+            <div id="result" class="mb-3 border rounded p-2" style="white-space: pre-wrap; min-height: 75px; overflow-y: auto;"></div>
+            <div id="filenames" class="mb-3"></div>
+            <div id="time" class="mb-3"></div>
+            <div id="error" class="text-danger"></div>
+        </div>
+    </div>
+
+    <script>
+        function submitQuery() {
+            $(".loader").show();
+            var submitButton = $("button:contains('Submit')");
+            submitButton.prop("disabled", true);
+
+            var casedesc = document.getElementById("casedesc").value;
+            $.post("/query", { casedesc: casedesc }, function(data) {
+                $(".loader").hide();
+                submitButton.prop("disabled", false);
+
+                document.getElementById("result").innerText = data.result.replace(/\\n/g, '\n');
+                document.getElementById("filenames").innerHTML = data.filenames;
+                document.getElementById("time").innerHTML = "<strong>Time:</strong> " + parseFloat(data.time).toFixed(2) + " seconds";
+            }).fail(function() {
+                $(".loader").hide();
+                submitButton.prop("disabled", false);
+                document.getElementById("error").innerHTML = "An error occurred. Please try again.";
+            });
+        }
+    </script>
+</body>
+
+</html>
