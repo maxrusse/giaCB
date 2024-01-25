@@ -41,8 +41,45 @@ service_context = ServiceContext.from_defaults(llm_predictor=llm_predictor)
 storage_context = StorageContext.from_defaults(persist_dir=folder_path)  
 index = load_index_from_storage(storage_context)
 
-# Define your ENGLISCH_QA_PROMPT and ENGLISCH_REFINE_PROMPT templates here
-# ...
+#  ENGLISCH_QA_PROMPT and ENGLISCH_REFINE_PROMPT templates 
+# 
+
+ENGLISCH_QA_PROMPT_TMPL = (
+    "We have provided scientific context information below. \n"
+    "---------------------\n"
+    "{context_str}\n"
+    "\n---------------------\n"
+    "Given this information, please solve the following case: {query_str}\n"
+    "\n---------------------\n"
+    "Please follow the structure below for your response as list of differntial dignoses (only state the diagnosis, do not explain):\n"
+    "- Main differential diagnosis:\n"
+    "- Second most likely differential diagnosis:\n"
+    "- Third most likely differential diagnosis:\n"
+    "\n---------------------\n"
+    "Explanation: Provide a concise yet comprehensive and self-contained explanation summarizing the key points."
+    "\n---------------------\n"
+)
+ENGLISCH_QA_PROMPT = QuestionAnswerPrompt(ENGLISCH_QA_PROMPT_TMPL)
+
+# --- Helper Functions ---
+ENGLISCH_REFINE_PROMPT_TMPL = (
+    "The original Case file is as follows: {query_str}\n"
+    "We have provided an original differential diagnoses: {existing_answer}\n"
+    "We have the option to refine and rerank the original differential diagnoses (only if necessary) with some more context below.\n "
+    "If necessary, try to improve the differential diagnoses.\n"
+    "------------\n"
+    "{context_msg}\n"
+    "------------\n"
+    "Given the new context, refine and rerank the original differential diagnoses. The differntial diagnoses might be changed or adopted based on new context.\n"
+    "\n---------------------\n"
+    "Please follow the structure below for your response as list of differential diagnoses:\n"
+    "- Main differential diagnosis:\n"
+    "- Second most likely differential diagnosis:\n"
+    "- Third most likely differential diagnosis:\n"
+    "\n---------------------\n"
+    "If the new context is not useful, repeat exactly the original answer.\n"
+)
+
 
 # Time function
 def timeit(func):
