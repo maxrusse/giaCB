@@ -51,7 +51,7 @@ ENGLISCH_QA_PROMPT_TMPL = (
     "\n---------------------\n"
     "Given this information, please solve the following case: {query_str}\n"
     "\n---------------------\n"
-    "Please follow the structure below for your response as list of differntial dignoses (only state the diagnosis, do not explain):\n"
+    "Please follow the structure below for your response as list of differential diagnoses (only state the diagnosis, do not explain):\n"
     "- Main differential diagnosis:\n"
     "- Second most likely differential diagnosis:\n"
     "- Third most likely differential diagnosis:\n"
