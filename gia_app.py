@@ -80,6 +80,8 @@ ENGLISCH_REFINE_PROMPT_TMPL = (
     "If the new context is not useful, repeat exactly the original answer.\n"
 )
 
+ENGLISCH_REFINE_PROMPT = RefinePrompt(ENGLISCH_REFINE_PROMPT_TMPL)
+
 
 # Time function
 def timeit(func):
